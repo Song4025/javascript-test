@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>무한스크롤 자바스크립트</title>
+    </head>
+    <style>
+        #container {
+            max-width: 470px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #photos {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        img {
+            width: 150px;
+            display: flex;
+            flex-direction: column;
+            flex-basis: 100%;
+            flex: 1;
+            margin: 4px;
+        }
+    </style>
+    <body>
+        <div id="container">
+            <div id="photos"></div>
+            <!-- <button onclick="increase()">more!!</button> -->
+        </div>
+        <script>
+            // const getPhotos = page => {
+            //     const url = `https://jsonplaceholder.typicode.com/photos?page=${page}&_limit=10`;
+            //     return fetch(url);
+            // };
+
+            // const getImgs = urls => {
+            //     return urls.map(url => {
+            //         const img = document.createElement('img');
+            //         img.src = url;
+            //         return img;
+            //     });
+            // };
+
+            // getPhotos(1)
+            //     .then(response => response.json())
+            //     .then(data => data.map(d => d.thumbnailUrl))
+            //     .then(urls => getImgs(urls))
+            //     .then(imgs => {
+            //         const div = document.getElementById('photos');
+            //         div.append(...imgs);
+            //     });
+
+            // function more() {}
+
+            const getPhotos = page => {
+                console.log('111111')
+                const url = `https://jsonplaceholder.typicode.com/photos?page=${page}&_limit=10`
+                return fetch(url).then(response => response.json())
+            }
+
+            // url데이터 매핑을 먼저해주고
+            const mapPhotos = photos => {
+                console.log('333333')
+                return photos.map(item => {
+                    return { url: item.thumbnailUrl }
+                })
+            }
+
+            // 여기서 img태그에 가공된 url데이터를 매핑시켜준다.
+            const createImgElement = photo => {
+                const img = document.createElement('img')
+                img.src = photo.url
+                return img
+            }
+
+            // map으로 데이터개수만큼 img.src 에
+            const createPhotoElements = photos => {
+                console.log('photos', photos)
+                return photos.map(createImgElement)
+            }
+
+            // 화면에 그려주기위한 함수
+            // photoElements 는 url이 들어간 img태그들, el: 어디에 그려줄것인가
+
+            appendPhotoElements = (photoElements, el) => {
+                return el?.append(...photoElements)
+            }
+
+            // getPhotos(1).then(data => {
+            //     console.log('222222');
+            //     const mapped = mapPhotos(data);
+            //     const photoElementsTest = createPhotoElements(mapped);
+            //     appendPhotoElements(photoElementsTest, document.querySelector('#photos'));
+            // });
+
+            // 처리하는 함수가 promise의 경우에는 result에 then callback을 사용해서 반환을 하고 아닐경우 그냥 result 반환
+            const pipe = (...fns) => (arg) => 
+                fns.reduce((result, fn) => (fn instanceof Function ? result.then(fn) : result),
+                    Promise.resolve(arg)
+                );
+                
+
+            const $ = el => document.querySelector(el)
+
+            const processPhotos = pipe(getPhotos, mapPhotos, createPhotoElements, 
+                (photoElements) => appendPhotoElements(photoElements, $('#photos'))
+            )
+
+            const getNextPhotos = (() => {
+                let page = 1
+                let isFetching = false
+                return () => {
+                    if (!isFetching) {
+                        isFetching = true
+                        const nextPage = ++page
+                        processPhotos(nextPage).then(() => {
+                            isFetching = false
+                        })
+                    }
+                }
+            })()
+
+            window.addEventListener('scroll', () => {
+                const scrollPos = window.innerHeight + window.scrollY
+                const bodyHeight = document.body.offsetHeight
+
+                if (scrollPos >= bodyHeight) {
+                    getNextPhotos()
+                }
+            })
+
+            processPhotos(1)
+        </script>
+    </body>
+</html>
