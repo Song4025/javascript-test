@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>parameter practice</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>id</th>
+            <td class="id"></td>
+        </tr>
+        <tr>
+            <th>name</th>
+            <td class="name"></td>
+        </tr>
+        <tr>
+            <th>age</th>
+            <td class="age"></td>
+        </tr>
+    </table>
+    <script>
+        // 데이터 보관을 위한 객체 선언
+        const hashes = {};
+
+        // url파라미터를 배열로 가져오기
+        const parameters = location.search.split(/&|\?/).filter((value) => {
+            return value.includes('=');
+        })
+
+        // hashes[key] = value 의 형태로 객체에 보관
+        parameters.forEach((parameter) => {
+            // hoge = fuga를 ['hoge', 'fuga를'] 배열로 정리
+            const parameterList = parameter.split('=');
+            const key = parameterList[0];
+            const value = decodeURIComponent(parameterList[1]);
+
+            hashes[key] = value;
+        });
+
+        console.log("parameters", parameters);
+
+        // 파라미터 데이터 처리
+
+        // hashes에 id가 포함된경우 처리작업
+        // if(hashes['id'] != null) {
+        //     document.querySelector(".id").innerHTML = hashes['id'];
+        // }
+        // if(hashes['name'] != null) {
+        //     document.querySelector(".name").innerHTML = hashes['name'];
+        // }
+        // if(hashes['age'] != null) {
+        //     document.querySelector(".age").innerHTML = hashes['age'];
+        // }
+
+        // 데이터 화면에 뿌려주기 최적화
+        const fields = ['id', 'name', 'age'];
+
+        fields.forEach((field) => {
+            console.log("field", field);
+            if(hashes[field] !== null) {
+                document.querySelector(`.${field}`).innerHTML = hashes[field];
+            }
+        })
+
+    </script>
+</body>
+</html>
