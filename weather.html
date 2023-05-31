@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weather</title>
+</head>
+<body>
+    <script>
+        const apiUrl = "https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty";
+        const serviceKey = "haffy3G24B1D6By3%2FuGl%2BVKxz9AgcVOD6oMimXPypPOc4JWSR6zC1XTaAlDeXwFeNHItvN1igylWaHrto%2BjfwA%3D%3D";
+        const parameters = {
+        serviceKey: serviceKey,
+        pageNo: "1",
+        numOfRows: "1",
+        returnType: "JSON",
+        stationName: "강남구",
+        dataTerm: "DAILY",
+        ver: "1.4"
+        };
+        function sendApiRequest() {
+        const requestUrl = `${apiUrl}?${getQueryString(parameters)}`;
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", requestUrl, true);
+        xhr.send();
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                let response;
+                try {
+                    response = console.log("-----", JSON.parse(xhr.responseText));
+                } catch (error) {
+                    console.error("API 응답 파싱 오류:", error);
+                    return;
+                }
+                    console.log(response);
+                // 여기에서 응답 데이터를 처리합니다.
+                } else {
+                    console.error("API 요청이 상태 코드", xhr.status, "로 실패했습니다.");
+                }
+            }
+        };
+        }
+
+        function getQueryString(params) {
+        return Object.keys(params)
+            .map(key => `${key}=${params[key]}`)
+            .join("&");
+        }
+
+        sendApiRequest();
+
+    </script>
+</body>
+</html>
