@@ -8,10 +8,26 @@
 </head>
 <body>
     <script>
-        const apiUrl = "https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty";
-        const serviceKey = "haffy3G24B1D6By3%2FuGl%2BVKxz9AgcVOD6oMimXPypPOc4JWSR6zC1XTaAlDeXwFeNHItvN1igylWaHrto%2BjfwA%3D%3D";
-        const parameters = {
-        serviceKey: serviceKey,
+
+        // 기상청 API
+        const weatherApiUrl  = "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst";
+        const weatherServiceKey  = "haffy3G24B1D6By3%2FuGl%2BVKxz9AgcVOD6oMimXPypPOc4JWSR6zC1XTaAlDeXwFeNHItvN1igylWaHrto%2BjfwA%3D%3D";
+        const weatherParameters  = {
+        serviceKey: weatherServiceKey,
+        pageNo: "1",
+        numOfRows: "100",
+        dataType: "JSON",
+        base_date: "20230531",
+        base_time: "1400",
+        nx: "37",
+        ny: "127"
+        };
+
+        // 미세먼지 API
+        const airPollutionApiUrl  = "https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty";
+        const airPollutionServiceKey = "haffy3G24B1D6By3%2FuGl%2BVKxz9AgcVOD6oMimXPypPOc4JWSR6zC1XTaAlDeXwFeNHItvN1igylWaHrto%2BjfwA%3D%3D";
+        const airPollutionParameters  = {
+        serviceKey: airPollutionServiceKey,
         pageNo: "1",
         numOfRows: "1",
         returnType: "JSON",
@@ -19,30 +35,59 @@
         dataTerm: "DAILY",
         ver: "1.4"
         };
-        function sendApiRequest() {
-        const requestUrl = `${apiUrl}?${getQueryString(parameters)}`;
 
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", requestUrl, true);
-        xhr.send();
+        // 날씨 Api불러오기
+        function sendWeatherApiRequest() {
+            const weatherSearchParams = `${weatherApiUrl}?${getQueryString(weatherParameters)}`;
 
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                let response;
-                try {
-                    response = console.log("-----", JSON.parse(xhr.responseText));
-                } catch (error) {
-                    console.error("API 응답 파싱 오류:", error);
-                    return;
+            const weatherXhr = new XMLHttpRequest();
+            weatherXhr.open("GET", weatherSearchParams, true);
+            weatherXhr.send();
+
+            weatherXhr.onreadystatechange = function() {
+                if (weatherXhr.readyState === XMLHttpRequest.DONE) {
+                if (weatherXhr.status === 200) {
+                    let response;
+                    try {
+                        response = JSON.parse(weatherXhr.responseText);
+                    } catch (error) {
+                        console.error("API 응답 파싱 오류:", error);
+                        return;
+                    }
+                        console.log(response);
+                    // 여기에서 응답 데이터를 처리합니다.
+                    } else {
+                        console.error("API 요청이 상태 코드", weatherXhr.status, "로 실패했습니다.");
+                    }
                 }
-                    console.log(response);
-                // 여기에서 응답 데이터를 처리합니다.
-                } else {
-                    console.error("API 요청이 상태 코드", xhr.status, "로 실패했습니다.");
+            };
+        }
+
+        // 미세먼지 Api불러오기
+        function sendAirPollutionApiRequest() {
+            const airPollutionSearchParams = `${airPollutionApiUrl}?${getQueryString(airPollutionParameters)}`;
+
+            const airPollutionXhr  = new XMLHttpRequest();
+            airPollutionXhr .open("GET", airPollutionSearchParams, true);
+            airPollutionXhr .send();
+
+            airPollutionXhr .onreadystatechange = function() {
+                if (airPollutionXhr .readyState === XMLHttpRequest.DONE) {
+                if (airPollutionXhr .status === 200) {
+                    let response;
+                    try {
+                        response = JSON.parse(airPollutionXhr .responseText);
+                    } catch (error) {
+                        console.error("API 응답 파싱 오류:", error);
+                        return;
+                    }
+                        console.log(response);
+                    // 여기에서 응답 데이터를 처리합니다.
+                    } else {
+                        console.error("API 요청이 상태 코드", airPollutionXhr.status, "로 실패했습니다.");
+                    }
                 }
-            }
-        };
+            };
         }
 
         function getQueryString(params) {
@@ -51,7 +96,8 @@
             .join("&");
         }
 
-        sendApiRequest();
+        sendWeatherApiRequest();
+        sendAirPollutionApiRequest();
 
     </script>
 </body>
