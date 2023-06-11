@@ -115,13 +115,13 @@ function displayMenuButtons() {
     const categories = menu.reduce(
         (values, item) => {
             if (!values.includes(item.category)) {
+                console.log("values", values);
                 values.push(item.category);
             }
             return values;
         },
         ["all"]
     );
-    console.log(categories);
     const categoryBtns = categories
         .map((category) => {
             return `
