@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="./faq.js"></script>
+        <script src="./response.js"></script>
+        <title>test</title>
+    </head>
+    <body>
+        <script>
+            const result = faq
+                .filter(f => f)
+                .filter(f => f.data)
+                .filter(f => Array.isArray(f.data))
+                .map(f =>
+                    f.data.filter(q => {
+                        const a = response.data
+                            // .filter(r => r)
+                            // .filter(r => r.data)
+                            // .filter(r => Array.isArray(r.data))
+                            .map(r => r.data)
+                            .flatMap(r => r)
+                            .some(r => r == q.text)
+                        console.log(a)
+                        return a
+                    })
+                ).map(f => {return (...f})
+                .map(f => {
+                    const div = document.createElement('div')
+                    div.setAttribute('type', '22')
+                    return div
+                })
+                .forEach(div => {})
+            console.log(i)
+        </script>
+    </body>
+</html>
