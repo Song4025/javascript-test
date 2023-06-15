@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<style>
+  #container {
+    height: 200px;
+    overflow: auto;
+  }
+
+  .scroll-item {
+    height: 200px;
+    margin-bottom: 20px;
+    background-color: #f2f2f2;
+  }
+</style>
+<body>
+
+<div id="container" class="container">
+
+</div>
+
+<div id="text_view"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+  class textView {
+    constructor(data) {
+      this.data = data;
+    }
+
+    makeElement() {
+      console.log(this.data.data)
+      const divElement = document.createElement('div');
+      const spanElement = document.createElement('span');
+      const imgElement = document.createElement('img');
+
+      spanElement.innerHTML = this.data.data.content;
+      imgElement.src = this.data.data.url;
+
+      divElement.appendChild(spanElement);
+      divElement.appendChild(imgElement);
+
+      return divElement;
+    }
+  }
+
+  $(document).ready(() => {
+    function getData() {
+      return new Promise((resolve, reject) => {
+        $.ajax({
+          method: 'GET',
+          url: './textGetData.json',
+          dataType: 'json',
+          success: (response) => {
+            resolve(response);
+          },
+          error: (error) => {
+            reject(error);
+          }
+        });
+      });
+    }
+
+    getData()
+    .then((cardInfo) => {
+      console.log("cardInfo", cardInfo.data);
+      cardInfo.data.forEach((item) => {
+        console.log("item", item);
+        const textViewObj = new textView(item);
+        const element = textViewObj.makeElement();
+        $('#text_view').append(element);
+      });
+    })
+    .catch((error) => {
+      console.log('Failed to fetch data:', error);
+    });
+  });
+
+
+
+</script>
+
+</body>
+</html>
