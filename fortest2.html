@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+</head>
+<body>
+    <ul class="question-list">
+        <li class="stock">
+            <h3>대분류1</h3>
+            <ol>
+                <li>데이터1</li>
+                <li>데이터2</li>
+                <li>데이터3</li>
+            </ol>
+        </li>
+        <li class="account">
+            <h3>대분류2</h3>
+            <ol>
+                <li>데이터4</li>
+                <li>데이터5</li>
+                <li>데이터6</li>
+                <li>데이터7</li>
+            </ol>
+        </li>
+        <li class="authCommision">
+            <h3>대분류3</h3>
+            <ol>
+                <li>데이터8</li>
+                <li>데이터9</li>
+                <li>데이터10</li>
+                <li>데이터11</li>
+            </ol>
+        </li>
+        <li class="finanaProject">
+            <h3>대분류4</h3>
+            <ol>
+                <li>데이터12</li>
+                <li>데이터13</li>
+                <li>데이터14</li>
+            </ol>
+        </li>
+    </ul>
+    <script>
+        const parentLi = document.createElement('li');
+        const title = document.createElement('h3');
+        const ol = document.createElement('ol');
+
+        title.innerHTML = response.category;
+
+        const childLiElements = response.data.map(item => {
+            const chip_data = {};
+            chip_data.text = "보유계좌 요약";
+            chip_data.type = "action";
+            chip_data.query = "계좌알려줘";
+            chip_data.tempData = "noAccount";
+
+            const chipButton = new ChipButton(chip_data);
+            
+            return chipButton;
+        })
+
+        childLiElements.forEach(childLi => {
+            ol.appendChild(childLi);
+        })
+
+        parentLi.appendChild(title);
+        parentLi.appendChild(ol);
+
+        return parentLi;
+
+    </script>
+</body>
+</html>
