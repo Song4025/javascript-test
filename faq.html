@@ -11,9 +11,9 @@
     <body>
         <script>
             const result = faq
-                .filter(f => f)
-                .filter(f => f.data)
-                .filter(f => Array.isArray(f.data))
+                // .filter(f => f)
+                // .filter(f => f.data)
+                // .filter(f => Array.isArray(f.data))
                 .map(f =>
                     f.data.filter(q => {
                         const a = response.data
@@ -23,17 +23,18 @@
                             .map(r => r.data)
                             .flatMap(r => r)
                             .some(r => r == q.text)
-                        console.log(a)
+                        // console.log(a)
                         return a
                     })
-                ).map(f => {return (...f})
-                .map(f => {
-                    const div = document.createElement('div')
-                    div.setAttribute('type', '22')
-                    return div
-                })
-                .forEach(div => {})
-            console.log(i)
+                )
+                // .map(f => f)
+                // .map(f => {
+                //     const div = document.createElement('div')
+                //     div.setAttribute('type', '22')
+                //     return div
+                // })
+                // .some(div => {})
+            console.log(result)
         </script>
     </body>
 </html>

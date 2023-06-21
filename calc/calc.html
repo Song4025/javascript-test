@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calc</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <div id="calc_window">
+        <section class="calc fullpopup">
+            <header>
+                <h2 class="tit">금융계산기</h2>
+                <button class="command-hide-clac-window close-btn-32">
+                    <span class="hide">닫기</span>
+                </button>
+            </header>
+            <main>
+                <div class="tab-box">
+                    <div class="active">
+                        <form action="#" class="deposit" title="금융계산기 예금">
+                            <fieldset>
+                                <legend>금융계산기 예금</legend>
+                                <button class="command-show-tab">예금</button>
+                                <div class="tab-wrap">
+                                    <div class="inp">
+                                        <input type="text" class="principal" maxlength="15" placeholder="가입금액">
+                                    </div>
+                                    <div class="inp-wrap">
+                                        <div class="dropdown">
+                                            <button class="dropdown-btn command-open-option selected-year">년</button>
+                                            <ul>
+                                                <li class="command-set-option">년</li>
+                                                <li class="command-set-option">월</li>
+                                            </ul>
+                                        </div>
+                                        <div class="inp">
+                                            <input type="text" class="period-type" min="1" max="100" name="period" placeholder="가입기간">
+                                        </div>
+                                    </div>
+                                    <div class="inp-wrap">
+                                        <div class="dropdown">
+                                            <button class="dropdown-btn command-option selected-interest">단리</button>
+                                            <ul>
+                                                <li class="command-set-option">단리</li>
+                                                <li class="command-set-option">복리</li>
+                                            </ul>
+                                        </div>
+                                        <div class="inp parcent">
+                                            <input type="number" step="0.01" class="interest-rate" min="0" max="1000" name="interest" placeholder="금리">
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="type-list">
+                                    <li>
+                                        <input type="text" name="tax_type" class="command-select-tax" checked value="15.4">
+                                        <label for="radio_01" class="command-select-tax">일반과세(15.4%)</label>
+                                    </li>
+                                    <li>
+                                        <input type="text" name="tax_type" class="command-select-tax" checked value="0">
+                                        <label for="radio_02" class="command-select-tax">비과세</label>
+                                    </li>
+                                </ul>
+                                <div class="tableA">
+                                    <table>
+                                        <caption>금융계산기</caption>
+                                        <tbody>
+                                            <tr>
+                                                <tr><th>원금</th><td class="result-principal won-current">0</td></tr>
+                                                <tr><th>세전이자</th><td class="result-interest-before-tax won-current">0</td></tr>
+                                                <tr><th>과세 후 이자</th><td class="result-interest-after-tax won-current">0</td></tr>
+                                                <tr><th>만기 후 수령액</th><td class="result-maturity-amount won-current">0</td></tr>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <span class="rqd mb24">상품특성에 따라 변동가능성 있음.</span>
+                                <button class="btn2 command-show-loan-result">월별 상환금액 더보기</button>
+                                <div class="bt-btn">
+                                    <button class="btn1 command-show-result" disabled>계산결과 대화창으로 보내기</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="">
+                        <form action="#" class="deposit" title="금융계산기 적금">
+                            <fieldset>
+                                <legend>금융계산기 적금</legend>
+                                <button class="command-show-tab">적금</button>
+                                <div class="tab-wrap">
+                                    <div class="inp">
+                                        <input type="text" class="principal" maxlength="15" placeholder="월납입금액">
+                                    </div>
+                                    <!-- Deposit Form -->
+                                    <div class="inp-wrap">
+                                        <div class="dropdown">
+                                        <button class="dropdown-btn command-option selected-interest">단리</button>
+                                        <ul>
+                                            <li class="command-set-option">단리</li>
+                                            <li class="command-set-option">복리</li>
+                                        </ul>
+                                        </div>
+                                        <div class="inp parcent">
+                                        <input
+                                            type="number"
+                                            step="0.01"
+                                            class="interest-rate"
+                                            min="0"
+                                            max="1000"
+                                            name="interest"
+                                            placeholder="금리"
+                                        />
+                                        </div>
+                                    </div>
+                                    <!-- Saving Form -->
+                                    <div class="inp-wrap">
+                                        <div class="dropdown">
+                                        <button class="dropdown-btn command-option selected-interest">단리</button>
+                                        <ul>
+                                            <li class="command-set-option">단리</li>
+                                            <li class="command-set-option">복리</li>
+                                        </ul>
+                                        </div>
+                                        <div class="inp parcent">
+                                        <input
+                                            type="number"
+                                            step="0.01"
+                                            class="interest-rate"
+                                            min="0"
+                                            max="1000"
+                                            name="interest"
+                                            placeholder="금리"
+                                        />
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="type-list">
+                                    <li>
+                                        <input type="text" name="tax_type" class="command-select-tax" checked value="15.4">
+                                        <label for="radio_01" class="command-select-tax">일반과세(15.4%)</label>
+                                    </li>
+                                    <li>
+                                        <input type="text" name="tax_type" class="command-select-tax" checked value="0">
+                                        <label for="radio_02" class="command-select-tax">비과세</label>
+                                    </li>
+                                </ul>
+                                <div class="tableA">
+                                    <table>
+                                        <caption>금융계산기</caption>
+                                        <tbody>
+                                            <tr>
+                                                <tr><th>원금</th><td class="result-principal won-current">0</td></tr>
+                                                <tr><th>세전이자</th><td class="result-interest-before-tax won-current">0</td></tr>
+                                                <tr><th>과세 후 이자</th><td class="result-interest-after-tax won-current">0</td></tr>
+                                                <tr><th>만기 후 수령액</th><td class="result-maturity-amount won-current">0</td></tr>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <span class="rqd mb24">상품특성에 따라 변동가능성 있음.</span>
+                                <button class="btn2 command-show-loan-result">월별 상환금액 더보기</button>
+                                <div class="bt-btn">
+                                    <button class="btn1 command-show-result" disabled>계산결과 대화창으로 보내기</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <span class="tab-bar"><em></em></span>
+                </div>
+            </main>
+        </section>
+    </div>
+    <script src="./calc.js"></script>
+</body>
+</html>
