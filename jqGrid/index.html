@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>test jq grid</title>
+        <!-- <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/redmond/jquery-ui.css" type="text/css" /> -->
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/5.8.4/js/jquery.jqGrid.min.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/5.8.4/plugins/searchFilter.min.css"
+            integrity="sha512-NHt+jyctLOsFCXu+2VSoXP93Oei0wpQLBrHgL5/2kwkTgiEa01iXVnfd74/TU/sVA2yEKhmcEm3F1/BpKC/0zw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/5.8.4/css/ui.jqgrid-bootstrap-ui.min.css"
+            integrity="sha512-Le5SZRnS7S4ArmiYClxIKwWLrs9SoHPyh+oQG7zSBbvm0QQosIoKLW6w7etCry7JlH4Zg4Yr54rWcHf9tq741g=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/5.8.4/css/ui.jqgrid-bootstrap.min.css"
+            integrity="sha512-9dZPlDxzzTCXDiJhdOEhwgyX7qhIdBPsgUx02/BmvVXLq7pHkPkCLNNw6S6O5NKRLvRE8/gGDYIRRzr0cPcQTg=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/5.8.4/css/ui.jqgrid-bootstrap4.min.css"
+            integrity="sha512-t35XjZVFkKQ8+OobfL8DgOefUr5mRT+0Gg50RTK1wRujBR80gX/6TgTGyQc8JgbGK04JwUJz2fqJdIwS8nhN/Q=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/5.8.4/css/ui.jqgrid-bootstrap5.min.css"
+            integrity="sha512-Ur9Bg6OslCwk3eblQHZGFoKcHnbRRJxeG/b2x3b1qNmPL+Rr6MoUHuPYPAWTMnechGB8bcuNfcfgeCMqN1tcpw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/5.8.4/css/ui.jqgrid.min.css"
+            integrity="sha512-dqK0BXOmiY//VfWL0aWEtrwwX4+tfLdMnzkZ0eik4zqOME1zTM9Ns2III7AkBqtxuUD9RqHbVHFeSqGGX+mJ6w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/5.8.4/js/i18n/grid.locale-kr.min.js"
+            integrity="sha512-+lqJDU6GZwxrJEXruI4tMHH/sv8KV6n5PdqugrvH2z+TgBYnWcs6wF2NLxYrelKCjvMcMTxpcJbqXjdyRAn0OA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/5.8.4/js/i18n/grid.locale-en.min.js"
+            integrity="sha512-aKSLJGPH+M9rAF9LJZ5dARDBMwGEjrYzwjO9dWOGKF8I0emQTdOsbzvjZ7Y+NltIk9aDlmq9mnaaFkUeicsgdQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/5.8.4/js/grid.subgrid.min.js"
+            integrity="sha512-zWOc2/7eAXkhHhfhGb1UJxTny1y6h5B9EbYENaOQqrYWcFYFMgNptVjw6F+am2kDEY0dzesVrlkWwVjrprPzhw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/5.8.4/js/minified/grid.subgrid.min.js"
+            integrity="sha512-nQONvs9I4KGQfokuvgJ3hqp8Sk7Js0P5ydrXlfHOHP2G0uYMAucxdS8nW/m9VReH2D1asHn6dFAlFqYgiWOuIg=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+        <script src="js/index.js"></script>
+        <script>
+            $(document).ready(() => {
+                $("#grid").jqGrid({
+                    //url: "https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year",
+                    //datatype: "json",
+                    datatype: "local",
+                    colModel: [
+                        { label: "타이틀", name: "title" },
+                        { label: "장르", name: "genres" },
+                    ],
+                    formatter: {
+                        integer: { thousandsSeparator: ",", defaultValue: "0" },
+                    },
+                    loadtext: "로딩중..",
+                    autowidth: true,
+                    loadonce: true,
+                    height: "auto",
+                    rowNum: 20,
+                    rowList: [10, 30, 50, 80, 100],
+                    pager: "#pager",
+                    pgtext: "Page {0} of {1}",
+                    jsonReader: { cell: "" },
+                    multiselect: true,
+                    jsonReader: {
+                        page: "data.page_number",
+                        total: "data.movie_count",
+                        root: "data.movies",
+                        repeatitems: false,
+                    },
+                });
+                $("#grid2").jqGrid({
+                    //url: "https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year",
+                    //datatype: "json",
+                    datatype: "local",
+                    colModel: [
+                        { label: "타이틀", name: "title" },
+                        { label: "장르", name: "genres" },
+                    ],
+                    formatter: {
+                        integer: { thousandsSeparator: ",", defaultValue: "0" },
+                    },
+                    loadtext: "로딩중..",
+                    autowidth: true,
+                    loadonce: true,
+                    height: "auto",
+                    rowNum: 20,
+                    rowList: [10, 30, 50, 80, 100],
+                    pager: "#pager2",
+                    pgtext: "Page {0} of {1}",
+                    jsonReader: { cell: "" },
+                    multiselect: true,
+                    subGrid: true,
+                    jsonReader: {
+                        page: "data.page_number",
+                        total: "data.movie_count",
+                        root: "data.movies",
+                        repeatitems: false,
+                    },
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div>
+            <h1 id="totalCount">0</h1>
+        </div>
+        <div>
+            <table id="grid"></table>
+            <div id="pager"></div>
+        </div>
+        <div>
+            <table id="grid2"></table>
+            <div id="pager2"></div>
+        </div>
+        <button onclick="retrieve()">조회</button>
+    </body>
+</html>
